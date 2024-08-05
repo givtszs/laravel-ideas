@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Idea>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Comment>
  */
-class IdeaFactory extends Factory
+class CommentFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,9 @@ class IdeaFactory extends Factory
     public function definition(): array
     {
         return [
+            'idea_id' => rand(1, 200),
             'user_id' => rand(1, 100),
-            'content' => fake()->text(30),
+            'content' => fake()->text(50)
         ];
     }
 }

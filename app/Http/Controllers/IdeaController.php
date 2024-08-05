@@ -56,7 +56,7 @@ class IdeaController extends Controller
 
     public function like(Idea $idea)
     {
-        if (Auth::user()->likesIdea($idea)) {
+        if (Auth::user()->doesLikeIdea($idea)) {
             $idea->likes()->detach(Auth::user());
             $message = 'Idea is unliked';
         } else {

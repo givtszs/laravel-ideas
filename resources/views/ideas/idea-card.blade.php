@@ -59,7 +59,7 @@
                     <form action="{{ route('ideas.like', $idea->id) }}" method="post">
                         @csrf
                         <button type="submit" class="fw-light nav-link fs-6">
-                            @if (Auth::user()->likesIdea($idea))
+                            @if (Auth::user()->doesLikeIdea($idea))
                                 <span class="fas fa-heart me-1 mt-3"></span>
                             @else
                                 <span class="far fa-heart me-1 mt-3"></span>

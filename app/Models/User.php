@@ -82,7 +82,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Idea::class, 'idea_like')->withTimestamps();
     }
 
-    public function likesIdea(Idea $idea)
+    public function doesLikeIdea(Idea $idea)
     {
         return $this->likedIdeas()->where('idea_id', $idea->id)->exists();
     }
@@ -98,11 +98,13 @@ class User extends Authenticatable
 
     public static function topUsers(): Collection
     {
-        return Cache::remember('topUsers', now()->addHour(), function () {
-            return User::withCount('ideas')
-                ->orderBy('ideas_count', 'DESC')
-                ->limit(5)
-                ->get();
-        });
+        return User::withCount('ideas')
+            ->orderBy('ideas_count', 'DESC')
+            ->limit(5)
+            ->get();
+
+        // TODO: Invalidate cache upon database data changes
+        // return Cache::remember('topUsers', now()->addHour(), function () {
+        // });
     }
 }

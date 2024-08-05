@@ -31,7 +31,7 @@ class IdeaController extends Controller
 
         $targetUrl = back()->getTargetUrl();
         if (Str::contains($targetUrl, 'ideas')) {
-            $targetUrl = route('dashboard');
+            $targetUrl = Str::contains($targetUrl, 'admin') ? route('admin.ideas') : route('dashboard');
         }
 
         return redirect($targetUrl)->with('success', 'Idea is deleted successfully');

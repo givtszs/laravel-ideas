@@ -36,9 +36,10 @@ Route::group(['prefix' => 'ideas', 'as' => 'ideas.', 'middleware' => 'auth'], fu
     Route::get('{idea}', [IdeaController::class, 'show'])->name('show')->withoutMiddleware('auth');
 });
 
-Route::post('/ideas/{idea}/comments', [CommentController::class, 'store'])
-    ->middleware('auth')
-    ->name('ideas.comments.store');
+Route::group(['middleware' => 'auth', 'prefix' => 'ideas/{idea}/comments', 'as' => 'ideas.comments.'], function () {
+    Route::post('', [CommentController::class, 'store'])->name('store');
+    Route::delete('/{comment}', [CommentController::class, 'destroy'])->middleware('can:admin')->name('destroy');
+});
 
 Route::get('/profile', [UserController::class, 'profile'])->middleware('auth')->name('profile');
 

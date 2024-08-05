@@ -21,4 +21,10 @@ class CommentController extends Controller
 
         return redirect()->route('ideas.show', $idea->id)->with('success', 'Comment is written successfully');
     }
+
+    public function destroy(Idea $idea, Comment $comment)
+    {
+        $comment->delete();
+        return back();
+    }
 }

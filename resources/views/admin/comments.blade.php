@@ -28,6 +28,13 @@
                             <td><a href="{{ route('users.show', $comment->user_id) }}">{{ $comment->user_id }}</a></td>
                             <td>{{ $comment->content }}</td>
                             <td>{{ $comment->created_at }}</td>
+                            <td>
+                                <form action="{{ route('ideas.comments.destroy', ['idea' => $comment->idea_id, 'comment' => $comment->id]) }}" method="post">
+                                    @method('delete')
+                                    @csrf
+                                    <button class="btn btn-link">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

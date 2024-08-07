@@ -35,6 +35,12 @@ class NotebookController extends Controller
         // Create a new notebook model
         $data = $request->validated();
         $data['creator'] = Auth::id();
+
+        if ($data['cover']) {
+            $path = $data['cover']->store('notebook_cover', 'public');
+            $data['cover'] = $path;
+        }
+
         Notebook::create($data);
 
         // Redirect back to the /notebooks

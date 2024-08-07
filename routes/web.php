@@ -9,6 +9,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\IdeaController;
+use App\Http\Controllers\NotebookController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -36,9 +37,13 @@ Route::group(['prefix' => 'ideas', 'as' => 'ideas.', 'middleware' => 'auth'], fu
     Route::get('{idea}', [IdeaController::class, 'show'])->name('show')->withoutMiddleware('auth');
 });
 
-Route::group(['middleware' => 'auth', 'prefix' => 'ideas/{idea}/comments', 'as' => 'ideas.comments.'], function () {
+Route::group(['prefix' => 'ideas/{idea}/comments', 'as' => 'ideas.comments.', 'middleware' => 'auth'], function () {
     Route::post('', [CommentController::class, 'store'])->name('store');
     Route::delete('/{comment}', [CommentController::class, 'destroy'])->middleware('can:admin')->name('destroy');
+});
+
+Route::group(['prefix' => 'notebooks', 'as' => 'notebooks.', 'middleware' => 'auth'], function () {
+    Route::get('/', [NotebookController::class, 'index'])->withoutMiddleware('auth')->name('index');
 });
 
 Route::get('/profile', [UserController::class, 'profile'])->middleware('auth')->name('profile');
@@ -52,7 +57,7 @@ Route::group(['prefix' => 'users', 'as' => 'users.', 'middleware' => 'auth'], fu
     Route::get('{user}', [UserController::class, 'show'])->name('show')->withoutMiddleware('auth');
 });
 
-Route::group(['middleware' => ['auth', 'can:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'can:admin']], function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/users', [AdminUserController::class, 'index'])->name('users');
     Route::get('/ideas', [AdminIdeasController::class, 'index'])->name('ideas');

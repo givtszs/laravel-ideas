@@ -15,12 +15,17 @@
                 <a class="{{ get_sidebar_link_style('dashboard') }}" href="{{ route('dashboard') }}">
                     <span>@lang('shared.home')</span></a>
             </li>
-            <li class="nav-item">
-                @auth
+            @auth
+                <li class="nav-item">
                     <a class="{{ get_sidebar_link_style('feed') }}" href="{{ route('feed') }}">
-                        <span>@lang('shared.feed')</span>
+                        @lang('shared.feed')
                     </a>
-                @endauth
+                </li>
+            @endauth
+            <li class="nav-item">
+                <a class="{{ get_sidebar_link_style('notebooks.index') }}" href="{{ route('notebooks.index') }}">
+                    @lang('shared.notebooks')
+                </a>
             </li>
         </ul>
     </div>

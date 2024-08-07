@@ -16,10 +16,6 @@
                     <span>@lang('shared.home')</span></a>
             </li>
             <li class="nav-item">
-                <a class="{{ get_sidebar_link_style('terms') }}" href="{{ route('terms') }}">
-                    <span>@lang('shared.terms')</span></a>
-            </li>
-            <li class="nav-item">
                 @auth
                     <a class="{{ get_sidebar_link_style('feed') }}" href="{{ route('feed') }}">
                         <span>@lang('shared.feed')</span>

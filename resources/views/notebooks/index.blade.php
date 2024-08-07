@@ -9,6 +9,8 @@
         </div>
 
         <div class="col-6">
+            @include('shared.success-message')
+            
             <div class="d-flex align-items-center">
                 <h4 class="me-3">@lang('notebooks.create')</h4>
                 <form method="get" action="{{ route('notebooks.create') }}">

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreNotebookRequest;
+use App\Models\Notebook;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Auth;
 
 class NotebookController extends Controller
 {
@@ -12,7 +15,8 @@ class NotebookController extends Controller
      */
     public function index()
     {
-        return view('notebooks.index');
+        $notebooks = Notebook::all();
+        return view('notebooks.index', compact('notebooks'));
     }
 
     /**
@@ -26,9 +30,15 @@ class NotebookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreNotebookRequest $request)
     {
-        //
+        // Create a new notebook model
+        $data = $request->validated();
+        $data['creator'] = Auth::id();
+        Notebook::create($data);
+
+        // Redirect back to the /notebooks
+        return redirect()->route('notebooks.index')->with('success', 'Notebook is created successfully');
     }
 
     /**

@@ -11,7 +11,7 @@
         <div class="col-6">
             <div class="d-flex align-items-center">
                 <h4 class="me-3">@lang('notebooks.create')</h4>
-                <form action="get" action="{{ route('notebooks.create') }}">
+                <form method="get" action="{{ route('notebooks.create') }}">
                     <button class="btn btn-primary">@lang('shared.create')</button>
                 </form>
             </div>

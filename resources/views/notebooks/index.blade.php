@@ -10,7 +10,7 @@
 
         <div class="col-6">
             @include('shared.success-message')
-            
+
             <div class="d-flex align-items-center">
                 <h4 class="me-3">@lang('notebooks.create')</h4>
                 <form method="get" action="{{ route('notebooks.create') }}">
@@ -20,6 +20,12 @@
             <hr>
 
             <h4>@lang('notebooks.explore')</h4>
+            <p>Total notebooks: {{ $notebooks->count() }}</p>
+            @forelse ($notebooks as $notebook)
+                @include('notebooks.notebook-card')
+            @empty
+                <p>@lang('notebooks.no_notebooks')</p>
+            @endforelse
         </div>
 
         <div class="col-3">

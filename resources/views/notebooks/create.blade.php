@@ -38,7 +38,7 @@
                         @enderror
                     </div>
 
-                    <div class="mt-5 d-flex flex-row-reverse">
+                    <div class="mt-5 d-flex float-end">
                         <button class="btn btn-success" type="submit">Submit</button>
                     </div>
                 </form>

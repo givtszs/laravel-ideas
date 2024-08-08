@@ -12,6 +12,9 @@
             @include('notebooks.notebook-header')
             <hr>
 
+            @include('shared.submit-idea')
+            <hr>
+
             @forelse ($ideas as $idea)
                 <div class="mt-3">
                     @include('ideas.idea-card')

@@ -19,6 +19,10 @@ class IdeaController extends Controller
         $validated = $request->validated();
         $validated['user_id'] = Auth::id();
 
+        if ($request->query('notebookId')) {
+            $validated['notebook_id'] = $request->query('notebookId');
+        }
+
         Idea::create($validated);
 
         return redirect()->route('dashboard')->with('success', 'Idea is created successfully');

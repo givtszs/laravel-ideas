@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreNotebookRequest;
+use App\Models\Idea;
 use App\Models\Notebook;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
@@ -52,7 +53,7 @@ class NotebookController extends Controller
      */
     public function show(Notebook $notebook)
     {
-        $ideas = collect();
+        $ideas = Idea::where('notebook_id', $notebook->id)->latest()->get();
         return view('notebooks.show', compact('notebook', 'ideas'));
     }
 

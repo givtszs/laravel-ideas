@@ -46,6 +46,7 @@ Route::group(['prefix' => 'notebooks', 'as' => 'notebooks.'], function () {
     Route::middleware('auth')->group(function () {
         Route::get('create', [NotebookController::class, 'create'])->name('create');
         Route::post('/', [NotebookController::class, 'store'])->name('store');
+        Route::post('{notebook}/join', [NotebookController::class, 'join'])->name('join');
     });
 
     Route::get('/', [NotebookController::class, 'index'])->name('index');

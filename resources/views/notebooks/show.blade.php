@@ -9,6 +9,8 @@
         </div>
 
         <div class="col-6">
+            @include('shared.success-message')
+
             @include('notebooks.notebook-header')
             <hr>
 

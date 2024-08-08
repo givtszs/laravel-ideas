@@ -19,12 +19,16 @@
             </div>
 
             @auth
-                <form action="">
-                    <button class="btn btn-primary float-end">
-                        <span class="fas fa-plus me-1"></span>
-                        Join
-                    </button>
-                </form>
+                @if (Auth::user()->joinedNotebook($notebook))
+                @else
+                    <form action="{{ route('notebooks.join', $notebook->id) }}" method="POST">
+                        @csrf
+                        <button class="btn btn-danger float-end">
+                            <span class="fas fa-plus me-1"></span>
+                            Join
+                        </button>
+                    </form>
+                @endif
             @endauth
         </div>
     </div>

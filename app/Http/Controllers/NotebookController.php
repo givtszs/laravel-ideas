@@ -80,4 +80,11 @@ class NotebookController extends Controller
     {
         //
     }
+
+
+    public function join(Notebook $notebook)
+    {
+        $notebook->users()->attach(Auth::id());
+        return back()->with('success', 'Joined the notebook successfully');
+    }
 }

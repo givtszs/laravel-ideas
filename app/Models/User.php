@@ -107,4 +107,14 @@ class User extends Authenticatable
         // return Cache::remember('topUsers', now()->addHour(), function () {
         // });
     }
+
+    public function notebooks(): BelongsToMany
+    {
+        return $this->belongsToMany(Notebook::class);
+    }
+
+    public function joinedNotebook(Notebook $notebook): bool
+    {
+        return $this->notebooks()->where('notebook_id', $notebook->id)->exists();
+    }
 }

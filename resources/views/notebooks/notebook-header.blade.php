@@ -18,12 +18,14 @@
                 </div>
             </div>
 
-            <form action="">
-                <button class="btn btn-primary float-end">
-                    <span class="fas fa-plus me-1"></span>
-                    Join
-                </button>
-            </form>
+            @auth
+                <form action="">
+                    <button class="btn btn-primary float-end">
+                        <span class="fas fa-plus me-1"></span>
+                        Join
+                    </button>
+                </form>
+            @endauth
         </div>
     </div>
 </div>

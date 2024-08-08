@@ -15,7 +15,7 @@ class NotebookController extends Controller
      */
     public function index()
     {
-        $notebooks = Notebook::all();
+        $notebooks = Notebook::paginate(20);
         return view('notebooks.index', compact('notebooks'));
     }
 

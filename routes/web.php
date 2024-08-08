@@ -42,10 +42,13 @@ Route::group(['prefix' => 'ideas/{idea}/comments', 'as' => 'ideas.comments.', 'm
     Route::delete('/{comment}', [CommentController::class, 'destroy'])->middleware('can:admin')->name('destroy');
 });
 
-Route::group(['prefix' => 'notebooks', 'as' => 'notebooks.', 'middleware' => 'auth'], function () {
-    Route::get('/', [NotebookController::class, 'index'])->withoutMiddleware('auth')->name('index');
-    Route::get('create', [NotebookController::class, 'create'])->name('create');
-    Route::post('/', [NotebookController::class, 'store'])->name('store');
+Route::group(['prefix' => 'notebooks', 'as' => 'notebooks.'], function () {
+    Route::middleware('auth')->group(function () {
+        Route::get('create', [NotebookController::class, 'create'])->name('create');
+        Route::post('/', [NotebookController::class, 'store'])->name('store');
+    });
+
+    Route::get('/', [NotebookController::class, 'index'])->name('index');
     Route::get('{notebook}', [NotebookController::class, 'show'])->name('show');
 });
 

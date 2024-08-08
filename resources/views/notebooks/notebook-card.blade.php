@@ -10,7 +10,7 @@
             <h5 class="card-title"> <a class="link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
                     href="{{ route('notebooks.show', $notebook->id) }}"> {{ $notebook->name }} </a></h5>
 
-            <div class="d-flex">
+            <div class="d-flex align-items-center">
                 <span class="fas fa-users me-1"></span>
                 <p class="card-subtitle">n/a</p>
             </div>
@@ -18,11 +18,13 @@
 
         <p class="card-text flex-grow-1">{{ $notebook->description ?? 'No description provided' }}</p>
 
-        <form action="#" method="">
-            <button class="btn btn-primary float-end">
-                <span class="fas fa-plus me-1"></span>
-                Join
-            </button>
-        </form>
+        @auth
+            <form action="#" method="">
+                <button class="btn btn-primary float-end">
+                    <span class="fas fa-plus me-1"></span>
+                    Join
+                </button>
+            </form>
+        @endauth
     </div>
 </div>

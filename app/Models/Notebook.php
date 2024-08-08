@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 
 class Notebook extends Model
@@ -16,6 +17,13 @@ class Notebook extends Model
         'description',
         'cover'
     ];
+
+    protected $withCount = ['ideas'];
+
+    public function ideas(): HasMany
+    {
+        return $this->hasMany(Idea::class);
+    }
 
     public function getCoverUrl(): ?string
     {

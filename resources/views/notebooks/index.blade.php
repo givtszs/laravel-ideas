@@ -34,6 +34,7 @@
         </div>
 
         <div class="col-3">
+            <!-- TODO: Search notebooks instead of ideas -->
             @include('layout.search-bar')
         </div>
     </div>

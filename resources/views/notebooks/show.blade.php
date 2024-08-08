@@ -14,7 +14,7 @@
 
             @auth
                 @include('shared.submit-idea')
-                <hr>a
+                <hr>
             @endauth
 
             @forelse ($ideas as $idea)
@@ -28,6 +28,10 @@
                     <p>@lang('ideas.no_ideas_created')</p>
                 @endif
             @endforelse
+        </div>
+
+        <div class="col-3">
+            @include('layout.search-bar')
         </div>
     </div>
 @endsection

@@ -14,7 +14,7 @@
 
                 <div class="d-flex align-items-center ms-3">
                     <span class="fas fa-lightbulb me-1"></span>
-                    <p class="mb-0">Ideas: n/a</p>
+                    <p class="mb-0">Ideas: {{ $notebook->ideas_count }}</p>
                 </div>
             </div>
 

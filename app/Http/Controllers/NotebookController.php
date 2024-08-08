@@ -53,7 +53,7 @@ class NotebookController extends Controller
      */
     public function show(Notebook $notebook)
     {
-        $ideas = Idea::where('notebook_id', $notebook->id)->latest()->get();
+        $ideas = $notebook->ideas()->latest()->get();
         return view('notebooks.show', compact('notebook', 'ideas'));
     }
 

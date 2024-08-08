@@ -25,20 +25,14 @@ class IdeaController extends Controller
 
         Idea::create($validated);
 
-        return redirect()->route('dashboard')->with('success', 'Idea is created successfully');
+        return back()->with('success', 'Idea is created successfully');
     }
 
     public function destroy(Idea $idea)
     {
         Gate::authorize('delete', $idea);
         $idea->delete();
-
-        $targetUrl = back()->getTargetUrl();
-        if (Str::contains($targetUrl, 'ideas')) {
-            $targetUrl = Str::contains($targetUrl, 'admin') ? route('admin.ideas') : route('dashboard');
-        }
-
-        return redirect($targetUrl)->with('success', 'Idea is deleted successfully');
+        return back()->with('success', 'Idea is deleted successfully');
     }
 
     public function show(Idea $idea)

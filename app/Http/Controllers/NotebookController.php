@@ -36,7 +36,7 @@ class NotebookController extends Controller
         $data = $request->validated();
         $data['creator'] = Auth::id();
 
-        if ($data['cover']) {
+        if ($request->has('cover') && $data['cover']) {
             $path = $data['cover']->store('notebook_cover', 'public');
             $data['cover'] = $path;
         }

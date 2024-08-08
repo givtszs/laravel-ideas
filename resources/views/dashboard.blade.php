@@ -9,7 +9,12 @@
         </div>
         <div class="col-6">
             @include('shared.success-message')
+
             @include('shared.submit-idea')
+            @guest
+                <h4>@lang('ideas.login_to_share')</h4>
+            @endguest
+
             <hr>
             @forelse ($ideas as $idea)
                 <div class="mt-3">

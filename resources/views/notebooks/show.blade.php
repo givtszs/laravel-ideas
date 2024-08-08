@@ -12,8 +12,10 @@
             @include('notebooks.notebook-header')
             <hr>
 
-            @include('shared.submit-idea')
-            <hr>
+            @auth
+                @include('shared.submit-idea')
+                <hr>a
+            @endauth
 
             @forelse ($ideas as $idea)
                 <div class="mt-3">

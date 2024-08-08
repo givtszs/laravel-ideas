@@ -15,6 +15,3 @@
         </form>
     </div>
 @endauth
-@guest
-    <h4>@lang('ideas.login_to_share')</h4>
-@endguest

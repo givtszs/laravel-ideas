@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             IdeaSeeder::class,
             IdeaLikeSeeder::class,
-            CommentSeeder::class
+            CommentSeeder::class,
+            NotebookSeeder::class
         ]);
     }
 }

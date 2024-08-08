@@ -9,7 +9,7 @@
             <div class="d-flex">
                 <div class="d-flex align-items-center">
                     <span class="fas fa-users me-1"></span>
-                    <p class="mb-0">Participants: n/a</p>
+                    <p class="mb-0">Participants: {{ $notebook->users_count }}</p>
                 </div>
 
                 <div class="d-flex align-items-center ms-3">

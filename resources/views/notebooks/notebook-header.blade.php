@@ -20,10 +20,17 @@
 
             @auth
                 @if (Auth::user()->joinedNotebook($notebook))
+                    <form action="{{ route('notebooks.leave', $notebook->id) }}" method="POST">
+                        @csrf
+                        <button class="btn btn-danger float-end">
+                            <span class="fas fa-door-open me-1"></span>
+                            Leave notebook
+                        </button>
+                    </form>
                 @else
                     <form action="{{ route('notebooks.join', $notebook->id) }}" method="POST">
                         @csrf
-                        <button class="btn btn-danger float-end">
+                        <button class="btn btn-primary float-end">
                             <span class="fas fa-plus me-1"></span>
                             Join
                         </button>

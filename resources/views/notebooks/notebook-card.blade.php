@@ -12,19 +12,19 @@
 
             <div class="d-flex align-items-center">
                 <span class="fas fa-users me-1"></span>
-                <p class="card-subtitle">n/a</p>
+                <p class="card-subtitle">{{ $notebook->users_count }}</p>
             </div>
         </div>
 
         <p class="card-text flex-grow-1">{{ $notebook->description ?? 'No description provided' }}</p>
 
-        @auth
+        {{-- @auth
             <form action="#" method="">
                 <button class="btn btn-primary float-end">
                     <span class="fas fa-plus me-1"></span>
                     Join
                 </button>
             </form>
-        @endauth
+        @endauth --}}
     </div>
 </div>

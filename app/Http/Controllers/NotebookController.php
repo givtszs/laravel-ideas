@@ -87,4 +87,10 @@ class NotebookController extends Controller
         $notebook->users()->attach(Auth::id());
         return back()->with('success', 'Joined the notebook successfully');
     }
+
+    public function leave(Notebook $notebook)
+    {
+        $notebook->users()->detach(Auth::id());
+        return redirect()->route('notebooks.index')->with('success', 'Left the notebook successfully');
+    }
 }

@@ -46,6 +46,7 @@ Route::group(['prefix' => 'notebooks', 'as' => 'notebooks.', 'middleware' => 'au
     Route::get('/', [NotebookController::class, 'index'])->withoutMiddleware('auth')->name('index');
     Route::get('create', [NotebookController::class, 'create'])->name('create');
     Route::post('/', [NotebookController::class, 'store'])->name('store');
+    Route::get('{notebook}', [NotebookController::class, 'show'])->name('show');
 });
 
 Route::get('/profile', [UserController::class, 'profile'])->middleware('auth')->name('profile');

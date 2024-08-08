@@ -50,9 +50,10 @@ class NotebookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Notebook $notebook)
     {
-        //
+        $ideas = collect();
+        return view('notebooks.show', compact('notebook', 'ideas'));
     }
 
     /**

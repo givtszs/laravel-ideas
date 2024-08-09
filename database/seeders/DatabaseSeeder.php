@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             IdeaSeeder::class,
             IdeaLikeSeeder::class,
             CommentSeeder::class,
-            NotebookSeeder::class
+            NotebookSeeder::class,
+            PermissionSeeder::class
         ]);
     }
 }

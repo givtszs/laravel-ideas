@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreNotebookRequest;
 use App\Models\Idea;
 use App\Models\Notebook;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class NotebookController extends Controller
 {
@@ -35,14 +37,15 @@ class NotebookController extends Controller
     {
         // Create a new notebook model
         $data = $request->validated();
-        $data['creator'] = Auth::id();
+        $data['creator_id'] = Auth::id();
 
         if ($request->has('cover') && $data['cover']) {
             $path = $data['cover']->store('notebook_cover', 'public');
             $data['cover'] = $path;
         }
 
-        Notebook::create($data);
+        $notebook = Notebook::create($data);
+        $this->join($notebook);
 
         // Redirect back to the /notebooks
         return redirect()->route('notebooks.index')->with('success', 'Notebook is created successfully');
@@ -84,7 +87,13 @@ class NotebookController extends Controller
 
     public function join(Notebook $notebook)
     {
-        $notebook->users()->attach(Auth::id());
+        // check if the current user is the creator of the notebook and assign him the notebook-admin role
+        if (Auth::id() === $notebook->creator_id) {
+            $roleId = Role::where('name', 'notebook-admin')->first()->id;
+            $attrs = ['role_id' => $roleId];
+        }
+        $notebook->users()->attach(Auth::id(), $attrs ?? []);
+
         return back()->with('success', 'Joined the notebook successfully');
     }
 

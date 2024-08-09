@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('notebooks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('creator')->constrained('users');
+            $table->foreignId('creator_id')->constrained('users');
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('cover')->nullable();

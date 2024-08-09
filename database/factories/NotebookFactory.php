@@ -17,7 +17,7 @@ class NotebookFactory extends Factory
     public function definition(): array
     {
         return [
-            'creator' => rand(1, 100),
+            'creator_id' => rand(1, 100),
             'name' => fake()->name(),
             'description' => fake()->text(),
         ];

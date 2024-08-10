@@ -9,7 +9,7 @@
         </div>
 
         <div class="d-flex flex-wrap">
-            @if ($notebook->getUserRole()?->hasPermissionTo('role_grant_notebook_moderator') && $notebook->getUserRole($participant) == null)
+            @can('makeModerator', [$notebook->resolveUserParticipant(), $participant->pivot])
                 <form class="me-2"
                     action="{{ route('notebooks.participants.make-moderator', ['notebook' => $notebook->id, 'participant' => $participant->id]) }}"
                     method="post">
@@ -17,9 +17,9 @@
                     @method('PUT')
                     <button class="btn btn-info">Make Moderator</button>
                 </form>
-            @endif
+            @endcan
 
-            @if ($notebook->getUserRole()?->hasPermissionTo('user_remove_from_notebook'))
+            @can('remove', [$notebook->resolveUserParticipant(), $participant->pivot])
                 <form
                     action="{{ route('notebooks.participants.remove', ['notebook' => $notebook->id, 'participant' => $participant->id]) }}"
                     method="post">
@@ -27,7 +27,7 @@
                     @method('DELETE')
                     <button class="btn btn-danger">Remove</button>
                 </form>
-            @endif
+            @endcan
         </div>
     </div>
 

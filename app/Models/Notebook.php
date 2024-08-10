@@ -31,7 +31,7 @@ class Notebook extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)->withTimestamps()->withPivot('role_id');
+        return $this->belongsToMany(User::class)->withTimestamps()->withPivot('role_id')->using(NotebookParticipant::class);
     }
 
     public function getCoverUrl(): ?string
@@ -43,13 +43,8 @@ class Notebook extends Model
         return "https://loremflickr.com/320/240?random={$this->name}";
     }
 
-    public function getUserRole(?User $user = null): ?Role
+    public function resolveUserParticipant(): ?NotebookParticipant
     {
-        if (!Auth::check()) {
-            return null;
-        }
-        
-        $roleId = $this->users()->firstWhere('user_id', $user->id ?? Auth::id())?->pivot->role_id;
-        return Role::firstWhere('id', $roleId);
+        return $this->users()->firstWhere('user_id', Auth::id())?->pivot;
     }
 }

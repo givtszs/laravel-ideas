@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 
+use function PHPUnit\Framework\isNull;
+
 class Notebook extends Model
 {
     use HasFactory;
@@ -41,13 +43,13 @@ class Notebook extends Model
         return "https://loremflickr.com/320/240?random={$this->name}";
     }
 
-    public function getUserRole(): ?Role
+    public function getUserRole(?User $user = null): ?Role
     {
         if (!Auth::check()) {
             return null;
         }
-
-        $roleId = $this->users()->firstWhere('user_id', Auth::id())->pivot->role_id;
+        
+        $roleId = $this->users()->firstWhere('user_id', $user->id ?? Auth::id())?->pivot->role_id;
         return Role::firstWhere('id', $roleId);
     }
 }

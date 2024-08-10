@@ -9,13 +9,19 @@
         </div>
 
         <div class="d-flex flex-wrap">
-            <form class="me-2" action="" method="">
-                <button class="btn btn-info">Make Moderator</button>
-            </form>
+            @if ($notebook->getUserRole()?->hasPermissionTo('role_grant_notebook_moderator') && $notebook->getUserRole($participant) == null)
+                <form class="me-2"
+                    action="{{ route('notebooks.participants.make-moderator', ['notebook' => $notebook->id, 'participant' => $participant->id]) }}"
+                    method="post">
+                    @csrf
+                    @method('PUT')
+                    <button class="btn btn-info">Make Moderator</button>
+                </form>
+            @endif
 
-            @if($notebook->getUserRole()?->hasPermissionTo('user_remove_from_notebook'))
+            @if ($notebook->getUserRole()?->hasPermissionTo('user_remove_from_notebook'))
                 <form
-                    action="{{ route('notebooks.participants.remove', ['notebook' => $notebook->id, 'user' => $participant->id]) }}"
+                    action="{{ route('notebooks.participants.remove', ['notebook' => $notebook->id, 'participant' => $participant->id]) }}"
                     method="post">
                     @csrf
                     @method('DELETE')

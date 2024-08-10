@@ -102,4 +102,6 @@ class NotebookController extends Controller
         $notebook->users()->detach(Auth::id());
         return redirect()->route('notebooks.index')->with('success', 'Left the notebook successfully');
     }
+
+
 }

@@ -9,12 +9,13 @@
             <div class="d-flex">
                 <div class="d-flex align-items-center">
                     <span class="fas fa-users me-1"></span>
-                    <p class="mb-0">Participants: {{ $notebook->users_count }}</p>
+                    <a class="mb-0 text-muted link-secondary link-underline-secondary link-underline-opacity-0 link-underline-opacity-100-hover"
+                        href="{{ route('notebooks.participants', $notebook->id) }}">Participants: {{ $notebook->users_count }}</a>
                 </div>
 
                 <div class="d-flex align-items-center ms-3">
                     <span class="fas fa-lightbulb me-1"></span>
-                    <p class="mb-0">Ideas: {{ $notebook->ideas_count }}</p>
+                    <p class="mb-0 text-muted">Ideas: {{ $notebook->ideas_count }}</p>
                 </div>
             </div>
 

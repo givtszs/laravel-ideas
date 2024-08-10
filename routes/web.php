@@ -10,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\NotebookController;
+use App\Http\Controllers\ParticipantsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -48,6 +49,10 @@ Route::group(['prefix' => 'notebooks', 'as' => 'notebooks.'], function () {
         Route::post('/', [NotebookController::class, 'store'])->name('store');
         Route::post('{notebook}/join', [NotebookController::class, 'join'])->name('join');
         Route::post('{notebook}/leave', [NotebookController::class, 'leave'])->name('leave');
+    });
+
+    Route::group(['prefix' => '/{notebook}/participants'], function () {
+        Route::get('/', [ParticipantsController::class, 'index'])->name('participants');
     });
 
     Route::get('/', [NotebookController::class, 'index'])->name('index');

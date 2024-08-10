@@ -10,7 +10,7 @@
                 <div class="d-flex align-items-center">
                     <span class="fas fa-users me-1"></span>
                     <a class="mb-0 text-muted link-secondary link-underline-secondary link-underline-opacity-0 link-underline-opacity-100-hover"
-                        href="{{ route('notebooks.participants', $notebook->id) }}">Participants: {{ $notebook->users_count }}</a>
+                        href="{{ route('notebooks.participants.index', $notebook->id) }}">Participants: {{ $notebook->users_count }}</a>
                 </div>
 
                 <div class="d-flex align-items-center ms-3">

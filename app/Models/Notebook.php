@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class Notebook extends Model
 {
@@ -29,7 +29,7 @@ class Notebook extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)->withTimestamps();
+        return $this->belongsToMany(User::class)->withTimestamps()->withPivot('role_id');
     }
 
     public function getCoverUrl(): ?string
@@ -39,5 +39,15 @@ class Notebook extends Model
         }
 
         return "https://loremflickr.com/320/240?random={$this->name}";
+    }
+
+    public function getUserRole(): ?Role
+    {
+        if (!Auth::check()) {
+            return null;
+        }
+
+        $roleId = $this->users()->firstWhere('user_id', Auth::id())->pivot->role_id;
+        return Role::firstWhere('id', $roleId);
     }
 }

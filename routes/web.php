@@ -51,8 +51,9 @@ Route::group(['prefix' => 'notebooks', 'as' => 'notebooks.'], function () {
         Route::post('{notebook}/leave', [NotebookController::class, 'leave'])->name('leave');
     });
 
-    Route::group(['prefix' => '/{notebook}/participants'], function () {
-        Route::get('/', [ParticipantsController::class, 'index'])->name('participants');
+    Route::group(['prefix' => '/{notebook}/participants', 'as' => 'participants.'], function () {
+        Route::get('/', [ParticipantsController::class, 'index'])->name('index');
+        Route::delete('{user}/remove', [ParticipantsController::class, 'remove'])->name('remove');
     });
 
     Route::get('/', [NotebookController::class, 'index'])->name('index');

@@ -11,6 +11,7 @@
         <div class="col-6">
             @include('shared.success-message')
 
+            {{-- Create a notebook --}}
             @auth
                 <div class="d-flex align-items-center">
                     <h4 class="me-3">@lang('notebooks.create')</h4>
@@ -21,6 +22,20 @@
                 <hr>
             @endauth
 
+            {{-- User created notebooks --}}
+            @auth
+                @if (Auth::user()->notebooks()->count() > 0)
+                    <h4>{{ Auth::user()->name }}'s notebooks</h4>
+
+                    {{-- Show a list of user's created notebooks --}}
+                    @foreach (Auth::user()->notebooks as $notebook)
+                        @include('notebooks.notebook-card')
+                    @endforeach
+                    <hr>
+                @endif
+            @endauth
+
+            {{-- Explore notebooks --}}
             <h4 class="mb-3">@lang('notebooks.explore')</h4>
             @forelse ($notebooks as $notebook)
                 @include('notebooks.notebook-card')

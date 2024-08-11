@@ -13,6 +13,8 @@ class NotebookSeeder extends Seeder
      */
     public function run(): void
     {
-        Notebook::factory(50)->create();
+        Notebook::factory(50)->create()->each(function (Notebook $notebook) {
+            $notebook->users()->attach($notebook->creator_id);
+        });
     }
 }

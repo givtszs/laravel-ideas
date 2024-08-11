@@ -24,6 +24,15 @@ class PermissionSeeder extends Seeder
             Permission::create(['name' => $permission]);
         }
 
+        // Define the user role and its permissions
+        $userPermissions = [
+            PermissionsEnum::IdeaCreate->value,
+            PermissionsEnum::IdeaEdit->value,
+            PermissionsEnum::IdeaDelete->value,
+        ];
+
+        Role::create(['name' => RolesEnum::User->value])->syncPermissions($userPermissions);
+
         // Define the 'notebook-admin' role and its permissions
         $notebookAdminPermissions = [
             PermissionsEnum::GrantNotebookModerator->value,
@@ -43,11 +52,11 @@ class PermissionSeeder extends Seeder
 
         Role::create(['name' => RolesEnum::NotebookModerator->value])->syncPermissions($notebookModeratorPermissions);
 
+        // Define the 'notebook-participant' role and its permissions
         $notebookParticipantPermissions = [
             PermissionsEnum::IdeaCreate->value
         ];
 
-        // Define the 'notebook-participant' role and its permissions
         Role::create(['name' => RolesEnum::NotebookParticipant->value])->syncPermissions($notebookParticipantPermissions);
     }
 }

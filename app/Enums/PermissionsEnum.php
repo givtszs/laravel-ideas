@@ -6,8 +6,10 @@ enum PermissionsEnum: string
 {
     case GrantNotebookModerator = 'grant_notebook_moderator';
     case ParticipantDelete = 'participant_delete';
-    case IdeaDelete = 'idea_delete';
     case IdeaCreate = 'idea_create';
+    case IdeaEdit = 'idea_edit';
+    case IdeaDelete = 'idea_delete';
+    // case IdeaView = 'idea_view'; // every user and even guests can view ideas
 
     /**
      * Get all defined permissions.

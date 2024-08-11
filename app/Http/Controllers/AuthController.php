@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\RolesEnum;
 use App\Http\Requests\AuthenticateUserRequest;
 use App\Http\Requests\RegisterUserRequest;
 use App\Mail\WelcomeMail;
@@ -29,6 +30,7 @@ class AuthController extends Controller
             'email' => $validated['email'],
             'password' => Hash::make($validated['password'])
         ]);
+        $user->assignRole(RolesEnum::User);
 
         Mail::to($user)->queue(new WelcomeMail($user));
 

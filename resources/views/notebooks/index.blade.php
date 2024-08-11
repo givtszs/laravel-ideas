@@ -25,10 +25,19 @@
             {{-- User created notebooks --}}
             @auth
                 @if (Auth::user()->notebooks()->count() > 0)
-                    <h4>{{ Auth::user()->name }}'s notebooks</h4>
+                    <h4>My notebooks</h4>
+                    @foreach (Auth::user()->notebooks()->where('creator_id', Auth::id())->get() as $notebook)
+                        @include('notebooks.notebook-card')
+                    @endforeach
+                    <hr>
+                @endif
+            @endauth
 
-                    {{-- Show a list of user's created notebooks --}}
-                    @foreach (Auth::user()->notebooks as $notebook)
+            {{-- Notebooks user joined --}}
+            @auth
+                @if (Auth::user()->notebooks()->count() > 0)
+                    <h4>Joined notebooks</h4>
+                    @foreach (Auth::user()->notebooks()->where('creator_id', '!=', Auth::id())->get() as $notebook)
                         @include('notebooks.notebook-card')
                     @endforeach
                     <hr>

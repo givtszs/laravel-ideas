@@ -6,7 +6,8 @@ enum PermissionsEnum: string
 {
     case GrantNotebookModerator = 'grant_notebook_moderator';
     case ParticipantDelete = 'participant_delete';
-    case IdeaDelete = 'idea-delete';
+    case IdeaDelete = 'idea_delete';
+    case IdeaCreate = 'idea_create';
 
     /**
      * Get all defined permissions.

@@ -87,11 +87,14 @@ class NotebookController extends Controller
     {
         // check if the current user is the creator of the notebook and assign him the notebook-admin role
         if (Auth::id() === $notebook->creator_id) {
-            $roleId = Role::where('name', RolesEnum::NotebookAdmin->value)->first()->id;
-            $attrs = ['role_id' => $roleId];
+            $role = Role::findByName(RolesEnum::NotebookAdmin->value);
+            $attrs = ['role_id' => $role->id];
+        } else {
+            $role = Role::findByName(RolesEnum::NotebookParticipant->value);
+            $attrs = ['role_id' => $role->id];
         }
-        $notebook->users()->attach(Auth::id(), $attrs ?? []);
 
+        $notebook->users()->attach(Auth::id(), $attrs ?? []);
         return back()->with('success', 'Joined the notebook successfully');
     }
 

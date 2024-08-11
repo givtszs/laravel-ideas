@@ -15,8 +15,10 @@
             <hr>
 
             @auth
-                @include('shared.submit-idea')
-                <hr>
+                @can('createIdea', $notebook->resolveUserParticipant())
+                    @include('shared.submit-idea')
+                    <hr>
+                @endcan
             @endauth
 
             @forelse ($ideas as $idea)

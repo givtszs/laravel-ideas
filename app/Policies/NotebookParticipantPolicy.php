@@ -15,7 +15,7 @@ class NotebookParticipantPolicy
 
     public function before(): ?bool
     {
-        $this->notebookAdminRoleId = Role::firstWhere('name', RolesEnum::NotebookAdmin->value)->id;
+        $this->notebookAdminRoleId = Role::findByName(RolesEnum::NotebookAdmin->value)->id;
         return null;
     }
 
@@ -29,7 +29,7 @@ class NotebookParticipantPolicy
             return false;
         }
 
-        return $userParticipant->getRole()?->hasPermissionTo(PermissionsEnum::ParticipantDelete) ?? false;
+        return $userParticipant->role()?->hasPermissionTo(PermissionsEnum::ParticipantDelete) ?? false;
     }
 
     /**
@@ -42,6 +42,11 @@ class NotebookParticipantPolicy
             return false;
         }
 
-        return $userParticipant->getRole()?->hasPermissionTo(PermissionsEnum::GrantNotebookModerator) ?? false;
+        return $userParticipant->role()?->hasPermissionTo(PermissionsEnum::GrantNotebookModerator) ?? false;
+    }
+
+    public function createIdea(User $user, NotebookParticipant $notebookParticipant): bool
+    {
+        return $notebookParticipant->role()?->hasPermissionTo(PermissionsEnum::IdeaCreate) ?? false;
     }
 }

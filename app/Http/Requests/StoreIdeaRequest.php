@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Idea;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreIdeaRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class StoreIdeaRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->can('create', Idea::class);
     }
 
     /**

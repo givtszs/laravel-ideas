@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\RolesEnum;
 use App\Http\Requests\StoreNotebookRequest;
-use App\Models\Idea;
 use App\Models\Notebook;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 
@@ -89,7 +87,7 @@ class NotebookController extends Controller
     {
         // check if the current user is the creator of the notebook and assign him the notebook-admin role
         if (Auth::id() === $notebook->creator_id) {
-            $roleId = Role::where('name', 'notebook-admin')->first()->id;
+            $roleId = Role::where('name', RolesEnum::NotebookAdmin->value)->first()->id;
             $attrs = ['role_id' => $roleId];
         }
         $notebook->users()->attach(Auth::id(), $attrs ?? []);

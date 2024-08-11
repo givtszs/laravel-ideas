@@ -14,6 +14,9 @@ class NotebookParticipant extends Pivot
      */
     public $incrementing = true;
 
+    /**
+     * Get a role assigned to the participant.
+     */
     public function getRole(): ?Role
     {
         return Role::firstWhere('id', $this->role_id);

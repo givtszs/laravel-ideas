@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Enums\PermissionsEnum;
+use App\Enums\RolesEnum;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -18,25 +20,25 @@ class PermissionSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // Create permissions
-        $permissions = [
-            'role_grant_notebook_moderator',
-            'user_remove_from_notebook',
-            'idea_delete'
-        ];
-
-        foreach ($permissions as $permission) {
+        foreach (PermissionsEnum::permissions() as $permission) {
             Permission::create(['name' => $permission]);
         }
 
-        Role::create(['name' => 'notebook-admin'])
-            ->givePermissionTo([
-                'role_grant_notebook_moderator',
-                'user_remove_from_notebook',
-                'idea_delete'
-            ]);
+        // Define the 'notebook-admin' role and its permissions
+        $notebookAdminPermissions = [
+            PermissionsEnum::GrantNotebookModerator->value,
+            PermissionsEnum::ParticipantDelete->value,
+            PermissionsEnum::IdeaDelete->value,
+        ];
 
-        Role::create(['name' => 'notebook-moderator'])
-            ->givePermissionTo(['user_remove_from_notebook', 'idea_delete']);
+        Role::create(['name' => RolesEnum::NotebookAdmin->value])->syncPermissions($notebookAdminPermissions);
+
+        // Define the 'notebook-moderator' role and its permissions
+        $notebookModeratorPermissions = [
+            PermissionsEnum::ParticipantDelete->value,
+            PermissionsEnum::IdeaDelete->value,
+        ];
+
+        Role::create(['name' => RolesEnum::NotebookModerator->value])->syncPermissions($notebookModeratorPermissions);
     }
 }

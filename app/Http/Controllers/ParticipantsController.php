@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\RolesEnum;
 use App\Models\Notebook;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class ParticipantsController extends Controller
         $notebookUser = $notebook->users()->firstWhere('user_id', $participant->id);
         if (!$notebookUser->pivot->role_id) {
             // make moderator
-            $roleId = Role::where('name', 'notebook-moderator')->first()?->id;
+            $roleId = Role::where('name', RolesEnum::NotebookModerator->value)->first()?->id;
             if (isset($roleId)) {
                 $notebook->users()->updateExistingPivot($participant->id, ['role_id' => $roleId]);
                 return back()->with('success', 'Role is granted successfully');

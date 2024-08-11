@@ -20,7 +20,7 @@
             </div>
 
             @auth
-                @if (Auth::user()->joinedNotebook($notebook))
+                @if (Auth::user()->hasJoinedNotebook($notebook))
                     <form action="{{ route('notebooks.leave', $notebook->id) }}" method="POST">
                         @csrf
                         <button class="btn btn-danger float-end">

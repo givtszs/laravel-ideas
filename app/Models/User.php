@@ -111,10 +111,10 @@ class User extends Authenticatable
 
     public function notebooks(): BelongsToMany
     {
-        return $this->belongsToMany(Notebook::class);
+        return $this->belongsToMany(Notebook::class, 'notebook_participants');
     }
 
-    public function joinedNotebook(Notebook $notebook): bool
+    public function hasJoinedNotebook(Notebook $notebook): bool
     {
         return $this->notebooks()->where('notebook_id', $notebook->id)->exists();
     }

@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notebook_user', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('notebook_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->timestamps();
+        Schema::table('notebook_participants', function (Blueprint $table) {
+            $table->foreignId('role_id')->nullable()->constrained()->nullOnDelete();
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notebook_user');
+        Schema::table('notebook_participants', function (Blueprint $table) {
+            $table->dropConstrainedForeignId('role_id');
+        });
     }
 };

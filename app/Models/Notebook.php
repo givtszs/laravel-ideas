@@ -31,7 +31,10 @@ class Notebook extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)->withTimestamps()->withPivot('role_id')->using(NotebookParticipant::class);
+        return $this->belongsToMany(User::class, 'notebook_participants')
+            ->withTimestamps()
+            ->withPivot('role_id')
+            ->using(NotebookParticipant::class);
     }
 
     public function getCoverUrl(): ?string
